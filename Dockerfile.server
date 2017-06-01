@@ -12,14 +12,14 @@ COPY . .
 
 RUN go get ./...
 
-RUN go build -o /opt/output/client cmd/client/main.go
+RUN go build -o /opt/output/server cmd/server/main.go
 
 FROM golang:latest
 
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
-COPY --from=build /opt/output/client ./
+COPY --from=build /opt/output/server ./
 
-ENTRYPOINT ["/opt/app/client"]
-CMD ["--Address", "192.168.0.104:30551"]
+ENTRYPOINT ["/opt/app/server"]
+CMD ["--Port", ":30551"]
